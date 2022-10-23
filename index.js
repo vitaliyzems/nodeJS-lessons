@@ -1,37 +1,27 @@
 import fs from "fs";
-import { Transform } from "stream";
+import readline from "readline";
 
 const readStream = fs.createReadStream("./logs.txt");
 
-const writeFile = (ip) => {
-  const writeStream = fs.createWriteStream(`./${ip}_requests.log`, {
+const createWriteStream = (ip) => {
+  return fs.createWriteStream(`./${ip}_requests.log`, {
     flags: "a",
   });
-  return writeStream;
 };
 
-const firstLogRegExp = /89\.123\.1\.41.+/g;
-const secondLogRegExp = /34\.48\.240\.111.+/g;
+const IPs = ["89.123.1.41", "34.48.240.111"];
 
-const transformStream = new Transform({
-  transform(chunk, _, callback) {
-    const firstRequiredLogsArr = chunk.toString().match(firstLogRegExp);
-    const secondRequiredLogsArr = chunk.toString().match(secondLogRegExp);
+const rl = readline.createInterface({ input: readStream });
 
-    firstRequiredLogsArr.forEach((log) => {
-      writeFile("89.123.1.41").write(`${log}\n`, (err) => {
-        if (err) throw err;
-      });
+rl.on("line", (line) => {
+  if (line.includes(IPs[0])) {
+    createWriteStream(IPs[0]).write(`${line}\n`, (err) => {
+      if (err) throw err;
     });
-
-    secondRequiredLogsArr.forEach((log) => {
-      writeFile("34.48.240.111,").write(`${log}\n`, (err) => {
-        if (err) throw err;
-      });
+  }
+  if (line.includes(IPs[1])) {
+    createWriteStream(IPs[1]).write(`${line}\n`, (err) => {
+      if (err) throw err;
     });
-
-    callback();
-  },
+  }
 });
-
-readStream.pipe(transformStream);
