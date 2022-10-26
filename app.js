@@ -30,7 +30,6 @@ class ListItem {
 }
 
 const run = async () => {
-  console.log(options.d);
   const list = await fsPromises.readdir(currentDir);
   const items = list.map((fileName) => {
     return new ListItem(path.join(currentDir, fileName), fileName);
