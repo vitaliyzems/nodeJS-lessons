@@ -1,0 +1,26 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vitaliyzems/nodeJS-lessons.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vitaliyzems/nodeJS-lessons/issues"
+  },
+  "homepage": "https://github.com/vitaliyzems/nodeJS-lessons#readme",
+  "dependencies": {
+    "inquirer": "^9.1.4",
+    "yargs": "^17.6.0"
+  }
+}
