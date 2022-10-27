@@ -13,7 +13,7 @@ const options = yargs
     default: process.cwd(),
   })
   .positional("p", {
-    describe: "Pattern",
+    describe: "String search pattern",
     default: "",
   }).argv;
 
@@ -57,15 +57,22 @@ const run = async () => {
     return;
   }
 
-  const regExp = new RegExp(options.p, "igm");
-  const matches = data.match(regExp);
-  if (!matches) {
+  const arrayOfLines = data.split("\n");
+
+  const matches = [];
+
+  arrayOfLines.forEach((line) => {
+    if (line.includes(options.p)) {
+      matches.push(line);
+    }
+  });
+
+  if (!matches.length) {
     console.log("No matches found");
     return;
   }
-  matches.forEach((data) => {
-    console.log(data);
-  });
+
+  matches.forEach((match) => console.log(match));
 };
 
 run();
